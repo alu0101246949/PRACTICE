@@ -1,0 +1,26 @@
+// Araña B
+
+using UnityEngine;
+
+public class SpiderB : MonoBehaviour
+{
+    public Transform pointA;
+    public Transform pointB;
+    public float moveSpeed = 1f;
+
+    private bool moveToB = true;
+
+    void Update()
+    {
+        if (moveToB)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, pointB.position, moveSpeed * Time.deltaTime);
+            if (transform.position == pointB.position) moveToB = false;
+        }
+        else
+        {
+            transform.position = Vector3.MoveTowards(transform.position, pointA.position, moveSpeed * Time.deltaTime);
+            if (transform.position == pointA.position) moveToB = true;
+        }
+    }
+}
