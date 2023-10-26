@@ -1,0 +1,26 @@
+// Araña A
+
+using UnityEngine;
+
+public class SpiderA : MonoBehaviour
+{
+    public Transform chairPosition;
+    public Transform tablePosition;
+    public float moveSpeed = 1f;
+
+    private bool moveToTable = true;
+
+    void Update()
+    {
+        if (moveToTable)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, tablePosition.position, moveSpeed * Time.deltaTime);
+            if (transform.position == tablePosition.position) moveToTable = false;
+        }
+        else
+        {
+            transform.position = Vector3.MoveTowards(transform.position, chairPosition.position, moveSpeed * Time.deltaTime);
+            if (transform.position == chairPosition.position) moveToTable = true;
+        }
+    }
+}
