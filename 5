@@ -1,0 +1,38 @@
+using UnityEngine;
+
+public class BedAndChairAction : MonoBehaviour
+{
+    public GameObject[] chairs;
+    public float chairJumpForce = 5f;
+    public Transform bedLeftPosition;
+    public Transform bedRightPosition;
+    public float bedMoveSpeed = 1f;
+
+    private bool moveToRight = true;
+
+    void Update()
+    {
+        // Mover cama
+        if (moveToRight)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, bedRightPosition.position, bedMoveSpeed * Time.deltaTime);
+            if (transform.position == bedRightPosition.position) moveToRight = false;
+        }
+        else
+        {
+            transform.position = Vector3.MoveTowards(transform.position, bedLeftPosition.position, bedMoveSpeed * Time.deltaTime);
+            if (transform.position == bedLeftPosition.position) moveToRight = true;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Player")
+        {
+            foreach (GameObject chair in chairs)
+            {
+                chair.GetComponent<Rigidbody>().AddForce(new Vector3(0, chairJumpForce, 0), ForceMode.Impulse);
+            }
+        }
+    }
+}
