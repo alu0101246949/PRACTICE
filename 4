@@ -1,0 +1,26 @@
+// Araña C
+
+using UnityEngine;
+
+public class SpiderC : MonoBehaviour
+{
+    public float jumpForce = 5f;
+    private bool isJumping = false;
+
+    void Update()
+    {
+        if (!isJumping)
+        {
+            GetComponent<Rigidbody>().AddForce(new Vector3(0, jumpForce, 0), ForceMode.Impulse);
+            isJumping = true;
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Ground")
+        {
+            isJumping = false;
+        }
+    }
+}
